@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifestations – SciSearch</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg topnav">
+<div class="container">
+  <a class="navbar-brand brand" href="index.html">Sci<span>Search</span></a>
+  <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="menu">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+      <li class="nav-item"><a class="nav-link" href="man.html">Manifestations</a></li>
+      <li class="nav-item"><a class="nav-link" href="dom.html">Domaines</a></li>
+      <li class="nav-item"><a class="nav-link" href="arch.html">Archives</a></li>
+      <li class="nav-item"><a class="nav-link" href="ct.php">Contact</a></li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<section class="pagebanner">
+  <div class="container">
+    <span class="sectiontag">Explorer</span>
+    <h1 class="pagetitle">Toutes les Manifestations</h1>
+    <p class="pagedesc">Parcourez l'ensemble des conférences, colloques, séminaires et ateliers scientifiques disponibles.</p>
+  </div>
+</section>
+
+<section class="container py-4">
+  <div class="filterbar">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label>Mot-clé</label>
+        <input id="fkeyword" type="text" class="form-control" placeholder="Ex: Machine Learning">
+      </div>
+      <div class="col-md-2">
+        <label>Type</label>
+        <select id="ftype" class="form-select">
+          <option value="">Tous</option>
+          <option>Conférence</option>
+          <option>Séminaire</option>
+          <option>Colloque</option>
+          <option>Atelier</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Domaine</label>
+        <select id="fdomaine" class="form-select">
+          <option value="">Tous</option>
+          <option>Informatique</option>
+          <option>Mathématiques</option>
+          <option>Médecine</option>
+          <option>Physique</option>
+          <option>Biologie</option>
+          <option>Sciences de l'Environnement</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Pays</label>
+        <select id="fpays" class="form-select">
+          <option value="">Tous</option>
+          <option>France</option>
+          <option>Canada</option>
+          <option>Tunisie</option>
+          <option>Allemagne</option>
+          <option>Japon</option>
+          <option>Suisse</option>
+          <option>Maroc</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label>Date après le</label>
+        <input id="fdate" type="date" class="form-control">
+      </div>
+      <div class="col-md-1">
+        <button id="resetbtn" class="btnnavy w-100" title="Réinitialiser">✕</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container pb-3">
+  <p id="resultcount" class="resultcount"></p>
+</section>
+
+<section class="container pb-5">
+  <div id="cardgrid" class="row g-4"></div>
+  <div id="emptystate" class="emptystate" style="display:none">
+    <div class="emptystateicon">🔍</div>
+    <p>Aucune manifestation trouvée pour ces critères.</p>
+    <button class="btngold mt-3" id="clearfilters">Effacer les filtres</button>
+  </div>
+  <div id="paginationwrap" class="pagination-wrap"></div>
+</section>
+
+<footer class="footer">
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="footerlogo">Sci<span>Search</span></div>
+      <p>Plateforme de recherche des manifestations scientifiques nationales et internationales.</p>
+    </div>
+    <div class="col-md-4">
+      <h5 class="footertitle">Navigation</h5>
+      <a href="index.html" class="footerlink">Accueil</a>
+      <a href="man.html" class="footerlink">Manifestations</a>
+      <a href="arch.html" class="footerlink">Archives</a>
+    </div>
+    <div class="col-md-4">
+      <h5 class="footertitle">Contact</h5>
+      <p>Email : contact@scisearch.com</p>
+      <p>Téléphone : +216 00 000 000</p>
+    </div>
+  </div>
+  <hr>
+  <p class="text-center">© 2026 SciSearch - Tous les droits réservés</p>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const PER_PAGE = 9;
+  let currentPage = 1;
+  let filtered = [];
+
+  const grid      = document.getElementById('cardgrid');
+  const empty     = document.getElementById('emptystate');
+  const count     = document.getElementById('resultcount');
+  const pagwrap   = document.getElementById('paginationwrap');
+  const fkw       = document.getElementById('fkeyword');
+  const ftype     = document.getElementById('ftype');
+  const fdom      = document.getElementById('fdomaine');
+  const fpays     = document.getElementById('fpays');
+  const fdate     = document.getElementById('fdate');
+  const p = getParams();
+  if (p.q)       fkw.value    = p.q;
+  if (p.domaine) fdom.value   = p.domaine;
+  if (p.pays)    fpays.value  = p.pays;
+  if (p.type)    ftype.value  = p.type;
+  if (p.date)    fdate.value  = p.date;
+
+  function applyFilters() {
+    const kw  = fkw.value.trim().toLowerCase();
+    const typ = ftype.value;
+    const dom = fdom.value;
+    const pay = fpays.value;
+    const dat = fdate.value;
+
+    filtered = EVENTS.filter(ev => {
+      if (kw  && !ev.title.toLowerCase().includes(kw) &&
+                 !ev.desc.toLowerCase().includes(kw) &&
+                 !ev.organisateur.toLowerCase().includes(kw)) return false;
+      if (typ && ev.type    !== typ) return false;
+      if (dom && ev.domaine !== dom) return false;
+      if (pay && ev.pays    !== pay) return false;
+      if (dat && ev.date    <  dat)  return false;
+      return true;
+    });
+
+    currentPage = 1;
+    render();
+  }
+
+  function render() {
+    const start = (currentPage - 1) * PER_PAGE;
+    const page  = filtered.slice(start, start + PER_PAGE);
+
+    grid.innerHTML = page.map(buildCard).join('');
+    empty.style.display   = filtered.length ? 'none' : 'block';
+    pagwrap.style.display = filtered.length ? 'flex'  : 'none';
+
+    const total = filtered.length;
+    const showing = Math.min(start + PER_PAGE, total) - start;
+    count.innerHTML = `Affichage de <strong>${showing}</strong> résultat${showing>1?'s':''} sur <strong>${total}</strong> manifestation${total>1?'s':''}`;
+
+    renderPagination();
+  }
+
+  function renderPagination() {
+    const pages = Math.ceil(filtered.length / PER_PAGE);
+    if (pages <= 1) { pagwrap.innerHTML = ''; return; }
+
+    let html = '';
+    for (let i = 1; i <= pages; i++) {
+      if (pages > 7 && i > 3 && i < pages - 1 && Math.abs(i - currentPage) > 1) {
+        if (i === 4 || i === pages - 2) html += `<span class="pagedots">…</span>`;
+        continue;
+      }
+      html += `<button class="pagebtn ${i === currentPage ? 'pagebtnactive' : ''}" data-page="${i}">${i}</button>`;
+    }
+    pagwrap.innerHTML = html;
+
+    pagwrap.querySelectorAll('.pagebtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.dataset.page);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function resetFilters() {
+    fkw.value = ftype.value = fdom.value = fpays.value = fdate.value = '';
+    history.replaceState(null, '', 'man.html');
+    applyFilters();
+  }
+
+  fkw.addEventListener('input', applyFilters);
+  ftype.addEventListener('change', applyFilters);
+  fdom.addEventListener('change', applyFilters);
+  fpays.addEventListener('change', applyFilters);
+  fdate.addEventListener('change', applyFilters);
+  document.getElementById('resetbtn').addEventListener('click', resetFilters);
+  document.getElementById('clearfilters').addEventListener('click', resetFilters);
+
+  applyFilters();
+</script>
+</body>
+</html>
