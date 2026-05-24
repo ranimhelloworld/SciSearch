@@ -2,7 +2,7 @@
 
 Plateforme de recherche de conférences, colloques, séminaires et ateliers scientifiques nationaux et internationaux.
 
-🌐 **Site en ligne :** https://ranim-cmd.github.io/projet-web/
+🌐 **Site en ligne :** https://ranimhelloworld.github.io/SciSearch/
 
 ---
 
