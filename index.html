@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portail de Recherche de Manifestation Scientifique</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg topnav">
+<div class="container">
+  <a class="navbar-brand brand" href="index.html">Sci<span>Search</span></a>
+  <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="menu">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+      <li class="nav-item"><a class="nav-link" href="man.html">Manifestations</a></li>
+      <li class="nav-item"><a class="nav-link" href="dom.html">Domaines</a></li>
+      <li class="nav-item"><a class="nav-link" href="arch.html">Archives</a></li>
+      <li class="nav-item"><a class="nav-link active" href="ct.php">Contact</a></li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<section class="hero">
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-7">
+      <h1 class="herotitle">
+        Portail Intelligent de
+        <span class="highlight">Manifestations Scientifiques</span>
+      </h1>
+      <p class="herodesc">
+        Recherchez des conférences, colloques, séminaires et ateliers scientifiques
+        dans différents domaines académiques à travers le monde.
+      </p>
+      <div class="searchbar">
+        <input id="herosearch" type="text" placeholder="Rechercher une manifestation...">
+        <button class="btngold" id="herobtn">Rechercher</button>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="row g-3 mt-4 mt-lg-0">
+        <div class="col-6"><div class="statcard"><span class="number">320+</span><div class="label">Manifestations</div></div></div>
+        <div class="col-6"><div class="statcard"><span class="number">45+</span><div class="label">Pays</div></div></div>
+        <div class="col-6"><div class="statcard"><span class="number">120+</span><div class="label">Universités</div></div></div>
+        <div class="col-6"><div class="statcard"><span class="number">15K</span><div class="label">Chercheurs</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="container py-5">
+  <span class="sectiontag">Manifestations Récentes</span>
+  <h2 class="sectiontitle">Manifestations Scientifiques Disponibles</h2>
+  <div class="divider"></div>
+</section>
+
+<section class="container">
+  <div class="filterbar">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label>Mot-clé</label>
+        <input id="fkeyword" type="text" class="form-control" placeholder="Ex: Intelligence Artificielle">
+      </div>
+      <div class="col-md-4">
+        <label>Domaine</label>
+        <select id="fdomaine" class="form-select">
+          <option value="">Tous les domaines</option>
+          <option>Informatique</option>
+          <option>Mathématiques</option>
+          <option>Médecine</option>
+          <option>Physique</option>
+          <option>Biologie</option>
+          <option>Sciences de l'Environnement</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Pays</label>
+        <select id="fpays" class="form-select">
+          <option value="">Tous les pays</option>
+          <option>France</option>
+          <option>Canada</option>
+          <option>Tunisie</option>
+          <option>Allemagne</option>
+          <option>Japon</option>
+          <option>Suisse</option>
+          <option>Maroc</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container pb-3">
+  <p id="resultcount" class="resultcount"></p>
+</section>
+
+<section class="container pb-5">
+  <div id="cardgrid" class="row g-4"></div>
+  <div id="emptystate" class="emptystate" style="display:none">
+    <div class="emptystateicon">🔍</div>
+    <p>Aucune manifestation trouvée pour ces critères.</p>
+  </div>
+</section>
+
+<section class="container pb-5">
+  <div class="advsearch">
+    <h3 class="formtitle">Recherche Avancée</h3>
+    <form id="advsearchform">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Nom de la manifestation</label>
+          <input id="anom" type="text" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Organisateur</label>
+          <input id="aorg" type="text" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Date</label>
+          <input id="adate" type="date" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Domaine</label>
+          <select id="adomaine" class="form-select">
+            <option value="">Choisir un domaine</option>
+            <option>Informatique</option>
+            <option>Médecine</option>
+            <option>Mathématiques</option>
+            <option>Physique</option>
+            <option>Biologie</option>
+            <option>Sciences de l'Environnement</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btngold">Lancer la Recherche</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="footerlogo">Sci<span>Search</span></div>
+      <p>Plateforme de recherche des manifestations scientifiques nationales et internationales.</p>
+    </div>
+    <div class="col-md-4">
+      <h5 class="footertitle">Navigation</h5>
+      <a href="index.html" class="footerlink">Accueil</a>
+      <a href="man.html" class="footerlink">Manifestations</a>
+      <a href="arch.html" class="footerlink">Archives</a>
+    </div>
+    <div class="col-md-4">
+      <h5 class="footertitle">Contact</h5>
+      <p>Email : contact@scisearch.com</p>
+      <p>Téléphone : +216 00 000 000</p>
+    </div>
+  </div>
+  <hr>
+  <p class="text-center">© 2026 SciSearch - Tous les droits réservés</p>
+</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const grid    = document.getElementById('cardgrid');
+  const empty   = document.getElementById('emptystate');
+  const count   = document.getElementById('resultcount');
+  const fkw     = document.getElementById('fkeyword');
+  const fdom    = document.getElementById('fdomaine');
+  const fpays   = document.getElementById('fpays');
+
+  function render() {
+    const kw  = fkw.value.trim().toLowerCase();
+    const dom = fdom.value;
+    const pay = fpays.value;
+
+    const results = EVENTS.filter(ev => {
+      if (kw  && !ev.title.toLowerCase().includes(kw) && !ev.desc.toLowerCase().includes(kw)) return false;
+      if (dom && ev.domaine !== dom) return false;
+      if (pay && ev.pays !== pay)   return false;
+      return true;
+    });
+
+    grid.innerHTML = results.map(buildCard).join('');
+    empty.style.display = results.length ? 'none' : 'block';
+    count.innerHTML = `Affichage de <strong>${results.length}</strong> résultat${results.length>1?'s':''} sur <strong>${EVENTS.length}</strong> manifestations`;
+  }
+
+  fkw.addEventListener('input', render);
+  fdom.addEventListener('change', render);
+  fpays.addEventListener('change', render);
+  document.getElementById('herobtn').addEventListener('click', () => {
+    const v = document.getElementById('herosearch').value.trim();
+    if (v) window.location.href = `man.html?q=${encodeURIComponent(v)}`;
+    else   window.location.href = 'man.html';
+  });
+  document.getElementById('herosearch').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('herobtn').click();
+  });
+  document.getElementById('advsearchform').addEventListener('submit', e => {
+    e.preventDefault();
+    const p = {};
+    const nom = document.getElementById('anom').value.trim();
+    const org = document.getElementById('aorg').value.trim();
+    const dat = document.getElementById('adate').value;
+    const dom = document.getElementById('adomaine').value;
+    if (nom) p.q = nom;
+    if (org) p.org = org;
+    if (dat) p.date = dat;
+    if (dom) p.domaine = dom;
+    window.location.href = 'man.html?' + new URLSearchParams(p).toString();
+  });
+
+  render();
+</script>
+</body>
+</html>

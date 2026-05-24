@@ -1,0 +1,21 @@
+# PHP / server
+*.log
+*.env
+config.local.php
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
